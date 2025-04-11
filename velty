@@ -1,0 +1,32 @@
+#!/usr/bin/env php
+<?php
+
+$command = $argv[1] ?? null;
+
+switch ($command) {
+    case 'run':
+        $host = 'localhost';
+        $port = '8000';
+        $publicDir = __DIR__ . '/public';
+
+        $box = <<<BOX
+\033[92m
+╔══════════════════════════════════════════════╗
+║                                              ║
+║     🚀 Velty Framework ha iniciado el viaje  ║
+║                                              ║
+║     🌐 http://$host:$port                 ║
+║     🧠 CTRL + C para detener el servidor     ║
+║                                              ║
+╚══════════════════════════════════════════════╝
+\033[0m
+BOX;
+
+        echo $box . "\n";
+        system("php -S $host:$port -t $publicDir");
+        break;
+
+    default:
+        echo "Comando desconocido. Usa: php velty run\n";
+        break;
+}

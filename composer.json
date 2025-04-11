@@ -1,0 +1,22 @@
+{
+    "name": "victo/velty",
+    "description": "The best PHP Framework",
+    "type": "framework",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Velty\\Core\\": "core/",
+            "Velty\\App\\": "app/",
+            "Velty\\Exceptions\\": "src/Exceptions/"
+            
+        }
+    },
+    "authors": [
+        {
+            "name": "Viespa"
+        }
+    ],
+    "require": {
+        "filp/whoops": "^2.18"
+    }
+}
