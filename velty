@@ -2,6 +2,7 @@
 <?php
 
 $command = $argv[1] ?? null;
+$argument = $argv[2] ?? null;
 
 switch ($command) {
     case 'run':
@@ -26,7 +27,52 @@ BOX;
         system("php -S $host:$port -t $publicDir");
         break;
 
+    case 'make:controller':
+        if (!$argument) {
+            echo "❌ Debes indicar un nombre de controlador.\n";
+            exit;
+        }
+
+        $controllerDir = __DIR__ . '/app/Controllers';
+        if (!is_dir($controllerDir)) {
+            mkdir($controllerDir, 0777, true);
+        }
+
+        $filePath = "$controllerDir/{$argument}.php";
+
+        if (file_exists($filePath)) {
+            echo "⚠️  El controlador ya existe: {$argument}\n";
+            exit;
+        }
+
+        $template = <<<PHP
+<?php
+
+namespace App\Controllers;
+
+class {$argument}
+{
+    public function index()
+    {
+        echo "Hola desde {$argument}@index!";
+    }
+}
+PHP;
+
+        file_put_contents($filePath, $template);
+        echo "✅ Controlador {$argument} creado en app/Controllers/{$argument}.php\n";
+        break;
+
+    case 'init':
+        echo "⚙️  Inicializando proyecto Velty...\n";
+        // Podrías copiar archivos base o simplemente mostrar mensaje por ahora
+        echo "✅ Proyecto listo. Usa 'php velty run' para empezar.\n";
+        break;
+
     default:
-        echo "Comando desconocido. Usa: php velty run\n";
+        echo "📘 Comandos disponibles:\n";
+        echo "  php velty run                 # Inicia el servidor local\n";
+        echo "  php velty init                # Inicializa un proyecto base\n";
+        echo "  php velty make:controller Foo # Crea un controlador llamado Foo\n";
         break;
 }

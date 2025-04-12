@@ -15,8 +15,5 @@
         {
             "name": "Viespa"
         }
-    ],
-    "require": {
-        "filp/whoops": "^2.18"
-    }
+    ]
 }
